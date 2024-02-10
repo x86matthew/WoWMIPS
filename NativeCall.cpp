@@ -321,7 +321,7 @@ DWORD NativeCall_InitialiseEnvironment()
 	memcpy((void*)pGlobal_ExecuteNativeGateway, (void*)bExecuteNativeGatewayCode, sizeof(bExecuteNativeGatewayCode));
 
 	// get PEB LDR entry for the main exe image
-	pGlobal_MainExeLdrDataTableEntry = GetPebLdrDataTableEntry((BYTE*)GetModuleHandle(NULL));
+	pGlobal_MainExeLdrDataTableEntry = GetPebLdrDataTableEntry((BYTE*)GetModuleHandleA(NULL));
 	if(pGlobal_MainExeLdrDataTableEntry == NULL)
 	{
 		return 1;

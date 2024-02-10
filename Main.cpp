@@ -38,21 +38,21 @@ int main(int argc, char *argv[])
 	pTargetPath = argv[1];
 
 	// get RtlAddVectoredExceptionHandler function ptr
-	pRtlAddVectoredExceptionHandler = (VOID*(WINAPI*)(DWORD,VOID*))GetProcAddress(GetModuleHandle("ntdll.dll"), "RtlAddVectoredExceptionHandler");
+	pRtlAddVectoredExceptionHandler = (VOID*(WINAPI*)(DWORD,VOID*))GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlAddVectoredExceptionHandler");
 	if(pRtlAddVectoredExceptionHandler == NULL)
 	{
 		return 1;
 	}
 
 	// get RtlRemoveVectoredExceptionHandler function ptr
-	pRtlRemoveVectoredExceptionHandler = (DWORD(WINAPI*)(VOID*))GetProcAddress(GetModuleHandle("ntdll.dll"), "RtlRemoveVectoredExceptionHandler");
+	pRtlRemoveVectoredExceptionHandler = (DWORD(WINAPI*)(VOID*))GetProcAddress(GetModuleHandleA("ntdll.dll"), "RtlRemoveVectoredExceptionHandler");
 	if(pRtlRemoveVectoredExceptionHandler == NULL)
 	{
 		return 1;
 	}
 
 	// get SetProcessDEPPolicy function ptr
-	pSetProcessDEPPolicy = (BOOL(WINAPI*)(DWORD))GetProcAddress(GetModuleHandle("kernel32.dll"), "SetProcessDEPPolicy");
+	pSetProcessDEPPolicy = (BOOL(WINAPI*)(DWORD))GetProcAddress(GetModuleHandleA("kernel32.dll"), "SetProcessDEPPolicy");
 	if(pSetProcessDEPPolicy == NULL)
 	{
 		return 1;
@@ -74,7 +74,7 @@ int main(int argc, char *argv[])
 
 	// get full mips executable path
 	memset(szFullPath, 0, sizeof(szFullPath));
-	if(GetFullPathName(pTargetPath, sizeof(szFullPath) - 1, szFullPath, NULL) == 0)
+	if(GetFullPathNameA(pTargetPath, sizeof(szFullPath) - 1, szFullPath, NULL) == 0)
 	{
 		return 1;
 	}
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 	*pLastSlash = '\0';
-	SetCurrentDirectory(szFullPath);
+	SetCurrentDirectoryA(szFullPath);
 
 	// store image info
 	pGlobal_ImageBase = pImageBase;
