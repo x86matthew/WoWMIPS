@@ -150,7 +150,7 @@ BYTE CPU_GetRegisterIndexByName(const char *pRegisterName)
 {
 	for(DWORD i = 0; i < REGISTER_COUNT; i++)
 	{
-		if(stricmp(pGlobal_RegisterNames[i], pRegisterName) == 0)
+		if(_stricmp(pGlobal_RegisterNames[i], pRegisterName) == 0)
 		{
 			return (BYTE)i;
 		}
