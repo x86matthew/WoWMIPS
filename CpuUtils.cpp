@@ -2,7 +2,7 @@
 #include <windows.h>
 #include "WoWMIPS.h"
 
-char *pGlobal_RegisterNames[REGISTER_COUNT] =
+const char *pGlobal_RegisterNames[REGISTER_COUNT] =
 {
 	"zero",
 	"at",
@@ -124,7 +124,7 @@ OpcodeTypeStruct Global_OpcodeList[] =
 	{ "XORI", OPCODE_I_FORMAT, 0x0E, ExecuteInstruction_XORI },
 };
 
-DWORD CPU_SetError(CpuStateStruct *pCpuState, char *pErrorFormatStr, ...)
+DWORD CPU_SetError(CpuStateStruct *pCpuState, const char *pErrorFormatStr, ...)
 {
 	va_list ArgList;
 
@@ -146,7 +146,7 @@ DWORD CPU_SetError(CpuStateStruct *pCpuState, char *pErrorFormatStr, ...)
 	return 0;
 }
 
-BYTE CPU_GetRegisterIndexByName(char *pRegisterName)
+BYTE CPU_GetRegisterIndexByName(const char *pRegisterName)
 {
 	for(DWORD i = 0; i < REGISTER_COUNT; i++)
 	{

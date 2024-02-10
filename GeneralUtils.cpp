@@ -83,7 +83,7 @@ DWORD HookFunction(BYTE *pFunctionAddr, BYTE *pHookFunctionAddr)
 	return 0;
 }
 
-DWORD CheckAddressInModule(char *pModuleName, BYTE *pAddress)
+DWORD CheckAddressInModule(const char *pModuleName, BYTE *pAddress)
 {
 	HMODULE hModule = NULL;
 	MEMORY_BASIC_INFORMATION MemoryBasicInformation;
