@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
 	char *pTargetPath = NULL;
 	char szFullPath[512];
 	char *pLastSlash = NULL;
+	DWORD dwIgnoreCommandLineCharacterCount = 0;
 
 	if(argc < 2)
 	{
@@ -100,7 +101,13 @@ int main(int argc, char *argv[])
 	dwGlobal_ImageSize = pImageNtHeader->OptionalHeader.SizeOfImage;
 
 	// fix command-line (hook GetCommandLine globally rather than IAT hook - might be called indirectly via imported CRT functions)
-	if(FixCommandLine(strlen(argv[0])) != 0)
+	dwIgnoreCommandLineCharacterCount = strlen(argv[0]);
+	if(*(char*)GetCommandLineA() == '\"')
+	{
+		// ignore quote characters
+		dwIgnoreCommandLineCharacterCount += 2;
+	}
+	if(FixCommandLine(dwIgnoreCommandLineCharacterCount) != 0)
 	{
 		return 1;
 	}
