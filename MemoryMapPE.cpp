@@ -10,7 +10,7 @@ DWORD MemoryMapPE_LoadFileIntoMemory(char *pPath, BYTE **pFileData, DWORD *pdwFi
 	DWORD dwBytesRead = 0;
 
 	// open file
-	hFile = CreateFile(pPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+	hFile = CreateFileA(pPath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
 	if(hFile == INVALID_HANDLE_VALUE)
 	{
 		return 1;
@@ -225,7 +225,7 @@ FARPROC WINAPI Hook_GetProcAddress(HMODULE hModule, LPCSTR lpProcName)
 
 	// extract file name from full module path
 	memset(szCurrModulePath, 0, sizeof(szCurrModulePath));
-	GetModuleFileName(hModule, szCurrModulePath, sizeof(szCurrModulePath) - 1);
+	GetModuleFileNameA(hModule, szCurrModulePath, sizeof(szCurrModulePath) - 1);
 	pCurrModuleName = strrchr(szCurrModulePath, '\\');
 	if(pCurrModuleName == NULL)
 	{
@@ -276,7 +276,7 @@ DWORD MemoryMapPE_FixImports(BYTE *pImageBase, IMAGE_NT_HEADERS32 *pImageNtHeade
 			// load current module
 			pCurrModuleName = (char*)((BYTE*)pImageBase + pImageImportDescriptor->Name);
 
-			hModule = LoadLibrary(pCurrModuleName);
+			hModule = LoadLibraryA(pCurrModuleName);
 			if(hModule == NULL)
 			{
 				printf("Warning: Library '%s' not found\n", pCurrModuleName);

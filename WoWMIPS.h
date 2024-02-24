@@ -83,7 +83,7 @@ struct DecodedInstructionStruct;
 
 struct OpcodeTypeStruct
 {
-	char *pOpcodeName;
+	const char *pOpcodeName;
 	DWORD dwFormat;
 	DWORD dwOpcodeIndex;
 	DWORD (*pExecuteInstruction)(CpuStateStruct *pCpuState, DecodedInstructionStruct *pDecodedInstruction);
@@ -157,7 +157,7 @@ extern BYTE *pGlobal_ImageBase;
 extern DWORD dwGlobal_ImageSize;
 extern IMAGE_NT_HEADERS32 *pGlobal_ImageNtHeader;
 extern DWORD NativeCall_ExecuteFunction(CpuStateStruct *pCpuState, char *pFunctionName, DWORD dwFunctionAddress);
-extern BYTE CPU_GetRegisterIndexByName(char *pRegisterName);
+extern BYTE CPU_GetRegisterIndexByName(const char *pRegisterName);
 extern CpuThreadDataStruct *CPU_GetThreadData();
 extern DWORD CPU_ExecuteSubroutine(BYTE *pFunctionAddress, DWORD *pdwParamList, DWORD dwParamCount, DWORD *pdwReturnValue);
 extern DWORD ExecuteInstruction_NATIVECALL(CpuStateStruct *pCpuState, DecodedInstructionStruct *pDecodedInstruction);
@@ -269,11 +269,11 @@ extern DWORD ValidatePtrWrite(BYTE *pMemory, DWORD dwLength);
 extern DWORD ValidatePtrExec(BYTE *pMemory, DWORD dwLength);
 extern DWORD ExecuteInstructionUtils_Divide(CpuStateStruct *pCpuState, BYTE bRegisterIndex1, BYTE bRegisterIndex2, DWORD dwSigned);
 extern DWORD ExecuteInstructionUtils_Multiply(CpuStateStruct *pCpuState, BYTE bRegisterIndex1, BYTE bRegisterIndex2, DWORD dwSigned);
-extern DWORD CPU_SetError(CpuStateStruct *pCpuState, char *pErrorFormatStr, ...);
+extern DWORD CPU_SetError(CpuStateStruct *pCpuState, const char *pErrorFormatStr, ...);
 extern DWORD CPU_Error(CpuStateStruct *pCpuState);
 extern LDR_DATA_TABLE_ENTRY *GetPebLdrDataTableEntry(BYTE *pModuleBase);
 extern PEB *GetPeb();
-extern DWORD CheckAddressInModule(char *pModuleName, BYTE *pAddress);
+extern DWORD CheckAddressInModule(const char *pModuleName, BYTE *pAddress);
 extern DWORD HookFunction(BYTE *pFunctionAddr, BYTE *pHookFunctionAddr);
 extern DWORD NativeCall_InitialiseEnvironment();
 extern DWORD NativeCall_RestoreEnvironment();

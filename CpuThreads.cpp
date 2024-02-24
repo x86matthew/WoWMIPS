@@ -26,11 +26,12 @@ DWORD CPU_UnlockThreadList()
 
 CpuThreadDataStruct *CPU_AssignNewThread()
 {
+	DWORD i = 0;
 	CpuThreadDataStruct *pCpuThreadData = NULL;
 	HANDLE hCurrentThread = NULL;
 
 	// check for exited threads
-	for(DWORD i = 0; i < MAX_CPU_THREAD_COUNT; i++)
+	for(i = 0; i < MAX_CPU_THREAD_COUNT; i++)
 	{
 		if(Global_CpuThreadList[i].dwInUse != 0)
 		{
